@@ -1,0 +1,39 @@
+{
+  "name": "my-little-spiders",
+  "version": "1.0.0",
+  "description": "Express app for improving your relationships with spiders",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "node index.js",
+    "tailwind:css": "postcss ./public/tailwind.css -o ./public/styles.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xShipi/my-little-spiders.git"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "ejs",
+    "tailwindcss"
+  ],
+  "author": "Sipos Áron Dávid <sipisipos@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xShipi/my-little-spiders/issues"
+  },
+  "homepage": "https://github.com/xShipi/my-little-spiders#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.21",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.2.7"
+  }
+}
