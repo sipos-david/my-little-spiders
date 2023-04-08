@@ -1,8 +1,14 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+
 const app = express();
+const port = 3000;
 
-app.use('/', express.static("public"));
+app.use(bodyParser.json());
+app.use('/public', express.static("public"));
 
-app.listen(3000, () => {
-   console.log("Listening on :3000");
+require('./routes/index')(app);
+
+app.listen(port, () => {
+   console.log(`Listening on :${port}`);
 });
