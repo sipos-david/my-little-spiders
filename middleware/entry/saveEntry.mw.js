@@ -1,18 +1,17 @@
+const parseIntParam = require("../../lib/parseIntParam");
+
 function parseEntry(body) {
-    const date = body.date;
-    if (!date || typeof date !== 'string') {
+    if (!('date' in body) || typeof body.date !== 'string') {
         return undefined;
     }
-    const text = body.text;
-    if (!text || typeof text !== 'string') {
+    if (!('text' in body) || typeof body.text !== 'string') {
         return undefined;
     }
-    const respectGained = body.respectGained;
-    if (!respectGained && respectGained === 'number') {
+    if (!('respectGained' in body)) {
         return undefined;
     }
 
-    return {date: date, text: text, respectGained: respectGained};
+    return {date: body.date, text: body.text, respectGained: parseIntParam(body.respectGained)};
 }
 
 /**
@@ -29,7 +28,7 @@ module.exports = function (objRepo) {
         }
         const bodyParsed = parseEntry(req.body)
         if ((!bodyParsed && !res.locals.entry) ||
-            !bodyParsed && res.locals.entry) {
+            (!bodyParsed && res.locals.entry)) {
             res.status(400).end();
         }
 
@@ -42,10 +41,10 @@ module.exports = function (objRepo) {
         }
 
         // Handle existing item change
-        const updated = objRepo.db.entries.update({
+        objRepo.db.entries.update({
             ...bodyParsed,
             id: res.locals.entry.id,
         });
-        return res.status(200).redirect(`/roommate/${updated.id}`);
+        return res.status(200).redirect(`/roommate/${res.locals.roommate.id}`);
     };
 };

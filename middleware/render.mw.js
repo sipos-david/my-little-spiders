@@ -4,16 +4,8 @@
  * Passes req.locals.renderParams to the given view as parameters
  */
 module.exports = function (objRepo, viewName) {
-    return function (req, res) {
+    return function (req, res, _) {
         console.log('render: ' + viewName);
-        switch (viewName) {
-            case 'index':
-                res.json(res.locals.roommates);
-                break;
-            case 'roommateDetails':
-                res.json({...res.locals.roommate, entries: res.locals.entries});
-                break;
-        }
-        res.end();
+        res.render(viewName, res.locals);
     };
 };

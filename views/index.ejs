@@ -1,0 +1,46 @@
+<%- include('header') -%>
+<h1 class="text-3xl mt-16 mb-4 font-bold underline decoration-gray-400">My Little Spiders</h1>
+<div class="flex flex-col items-end">
+    <a class="transition hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-400 mb-2 font-semibold py-2 px-4 rounded"
+       href="/roommate/new">➕ Add new friend</a>
+    <table>
+        <thead>
+        <tr>
+            <th scope="col" class="bg-gray-300 text-gray-800 text-left p-4 font-medium rounded-l">Name</th>
+            <th scope="col" class="bg-gray-300 text-gray-800 text-center py-4 px-8 font-medium">Location</th>
+            <th scope="col" class="bg-gray-300 text-gray-800 text-center p-4 font-medium">Num of nightmares
+            </th>
+            <th scope="col" class="bg-gray-300 text-gray-800 text-center p-4 font-medium rounded-r">
+                Actions
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <% roommates.forEach((roommate) => { %>
+            <tr class="leading-10">
+                <td class="border-b-2 px-4 py-1 font-bold"><%= roommate.name %></td>
+                <td class="border-b-2 p-1 text-center"><%= roommate.location %></td>
+                <td class="border-b-2 p-1 text-center"><%= roommate.numOfNightmares %></td>
+                <td class="border-b-2 p-1">
+                    <a class="transition hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-400 p-2 rounded"
+                       href="/roommate/<%= roommate.id %>">👀</a>
+                    <a class="transition hover:bg-violet-100 focus:bg-violet-100 focus:outline-violet-400 p-2 rounded"
+                       href="/roommate/<%= roommate.id %>/edit">✏️</a>
+                    <a class="transition hover:bg-red-100 focus:bg-red-100 focus:outline-red-400 p-2 rounded"
+                       href="/roommate/<%= roommate.id %>/delete">❌</a>
+                </td>
+            </tr>
+        <% }); %>
+
+        <% if (!roommates || !Array.isArray(roommates) || roommates.length === 0) { %>
+            <tr>
+                <td colspan="4" class="pt-6 p-1 text-center">
+                    No roommate available 😭
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>
+<%- include('footer') -%>

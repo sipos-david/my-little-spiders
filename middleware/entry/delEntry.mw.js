@@ -6,16 +6,21 @@
 module.exports = function (objRepo) {
     return function (req, res, _) {
         const roommate = res.locals.roommate;
-        if (!roommate) {
+        const entryId = parseInt(req.params.entryId);
+        if (!roommate || isNaN(entryId)) {
             return res.status(400).end();
         }
-        let statusCode = 400;
-        const entry = objRepo.db.findById(req.params.entryId);
-        if (entry) {
-            statusCode = 200;
 
+        const entry = objRepo.db.entries.findById(entryId);
+        if (entry) {
+            const removedIdx = roommate.entryIds.findIndex( e => e === entry.id);
+            if (removedIdx > -1) {
+                roommate.entryIds.splice(removedIdx, 1);
+                objRepo.db.roommates.update(roommate);
+                objRepo.db.entries.deleteById(entryId);
+            }
         }
 
-        res.status(statusCode).redirect(`roommate/${roommate.id}`);
+        res.redirect(`/roommate/${roommate.id}`);
     };
 };
