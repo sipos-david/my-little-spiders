@@ -1,0 +1,32 @@
+<%- include('header') -%>
+<h1 class="text-3xl mt-16 mb-16 font-bold">Edit entry</h1>
+<form method="post" class="flex flex-col items-center">
+    <label for="date" class="mr-auto ml-1 font-semibold text-sm text-gray-600 after:content-['*'] after:text-pink-500">
+        Date
+    </label>
+    <input class="w-72 p-2 text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50 focus:outline-gray-400 mb-4 invalid:border-pink-500 focus:invalid:outline-pink-500"
+           type="date" id="date" name="date" value="<%= entry.date %>"/>
+    <label for="text"
+           class="mr-auto ml-1 font-semibold text-sm text-gray-600 after:content-['*'] after:text-pink-500">
+        Text
+    </label>
+    <textarea required rows="5"
+              class="w-72 p-2 text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50 focus:outline-gray-400 mb-4 invalid:border-pink-500 focus:invalid:outline-pink-500"
+              placeholder="We had beer together..." type="text" id="text"
+              name="text"><%= entry.text %></textarea>
+    <label class="relative block w-72 mb-8">
+        <span class="font-semibold text-sm text-gray-600 after:content-['*'] after:text-pink-500 after:pl-1">Respect gained</span>
+        <input class="peer block w-full py-2 pl-5 pr-2 text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50 focus:outline-gray-400 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:outline-pink-500"
+               placeholder="0" type="number" id="respectGained" name="respectGained" min="0" value="<%= entry.respectGained %>"/>
+        <span class="absolute top-0 left-0 mt-1.5 pt-6 pl-1.5 text-gray-500 peer-invalid:text-pink-600">
+                +
+            </span>
+    </label>
+
+    <button class="transition hover:bg-green-200 focus:bg-green-100 focus:outline-green-400 mb-2 font-semibold py-2 px-4 rounded">
+        ✅ Ok
+    </button>
+</form>
+<a class="transition hover:bg-red-100 focus:bg-red-100 focus:outline-red-400 mb-2 font-semibold py-2 px-4 rounded"
+   href="/roommate/<%= roommate.id %>">❌ Cancel</a>
+<%- include('footer') -%>
