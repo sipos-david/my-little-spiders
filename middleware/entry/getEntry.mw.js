@@ -10,9 +10,9 @@ module.exports = function (objRepo) {
         if (!roommate) {
             return res.status(400).end();
         }
-        const entry = objRepo.db.findById(parseInt(req.params.entryId));
+        const entry = objRepo.db.entries.findById(parseInt(req.params.entryId));
         if (!entry) {
-            return res.status(400).redirect(`roommate/${roommate.id}`).end();
+            return res.status(400).redirect(`/roommate/${roommate.id}`).end();
         }
         res.locals.entry = entry;
         next();

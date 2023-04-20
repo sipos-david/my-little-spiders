@@ -1,18 +1,15 @@
-function parseRoommate(body) {
-    const name = body.name;
-    if (!name || typeof name !== 'string') {
-        return undefined;
-    }
-    const location = body.location;
-    if (!location || typeof location !== 'string') {
-        return undefined;
-    }
-    let numOfNightmares = 0;
-    if (body.numOfNightmares && typeof body.numOfNightmares === 'number') {
-        numOfNightmares = body.numOfNightmares;
-    }
+const parseIntParam = require("../../lib/parseIntParam");
 
-    return {name: name, location: location, numOfNightmares: numOfNightmares, entryIds: []};
+function parseRoommate(body) {
+    if (!('name' in body) || typeof body.name !== 'string') {
+        return undefined;
+    }
+    if (!('location' in body) || typeof body.location !== 'string') {
+        return undefined;
+    }
+    const numOfNightmares = 'numOfNightmares' in body ? parseIntParam(body.numOfNightmares) : 0;
+
+    return {name: body.name, location: body.location, numOfNightmares: numOfNightmares, entryIds: []};
 }
 
 /**
@@ -25,7 +22,7 @@ module.exports = function (objRepo) {
         // Request is malformed
         const bodyParsed = parseRoommate(req.body)
         if ((!bodyParsed && !res.locals.roommate) ||
-            !bodyParsed && res.locals.roommate) {
+            (!bodyParsed && res.locals.roommate)) {
             return res.status(400).end();
         }
 

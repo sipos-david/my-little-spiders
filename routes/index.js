@@ -15,49 +15,52 @@ const db = require("../lib/db")
 module.exports = function (app) {
     const objRepo = {db: {roommates: db(), entries: db()}};
 
-    // View roommates
-    app.get('/',
-        getRoommatesMW(objRepo),
-        renderMW(objRepo, 'index'));
+    // Edit roommate entries
+    app.get('/roommate/:roommateId/entries/:entryId/delete',
+        getRoommateMW(objRepo),
+        delEntryMW(objRepo));
+    app.post('/roommate/:roommateId/entries/:entryId/edit',
+        getRoommateMW(objRepo),
+        getEntryMW(objRepo),
+        saveEntryMW(objRepo));
+    app.get('/roommate/:roommateId/entries/:entryId/edit',
+        getRoommateMW(objRepo),
+        getEntryMW(objRepo),
+        renderMW(objRepo, 'edit-entry'))
+
+    // Add new entry to roommate
+    app.get('/roommate/:roommateId/entries/new',
+        getRoommateMW(objRepo),
+        renderMW(objRepo, 'add-entry'))
+    app.post('/roommate/:roommateId/entries',
+        getRoommateMW(objRepo),
+        saveEntryMW(objRepo));
+
+    // Edit roommate
+    app.get('/roommate/:roommateId/delete',
+        getRoommateMW(objRepo),
+        delRoommateMW(objRepo));
+    app.post('/roommate/:roommateId/edit',
+        getRoommateMW(objRepo),
+        saveRoommateMW(objRepo));
+    app.get('/roommate/:roommateId/edit',
+        getRoommateMW(objRepo),
+        renderMW(objRepo, 'edit-friend'));
 
     // Add new roommate
     app.get('/roommate/new',
-        renderMW(objRepo, 'roommateNew'));
+        renderMW(objRepo, 'add-friend'));
     app.post('/roommate',
         saveRoommateMW(objRepo));
-
-    // Edit roommate
-    app.get('/roommate/:roommateId/edit',
-        renderMW(objRepo, 'roommateEdit'));
-    app.put('/roommate/:roommateId',
-        getRoommateMW(objRepo),
-        saveRoommateMW(objRepo));
-    app.delete('/roommate/:roommateId',
-        getRoommateMW(objRepo),
-        delRoommateMW(objRepo));
 
     // View roommate details
     app.get('/roommate/:roommateId',
         getRoommateMW(objRepo),
         getEntriesMW(objRepo),
-        renderMW(objRepo, 'roommateDetails'));
+        renderMW(objRepo, 'view-friend'));
 
-    // Add new entry to roommate
-    app.get('/roommate/:roommateId/entries/new',
-        renderMW(objRepo, 'entryNew'))
-    app.post('/roommate/:roommateId/entries',
-        getRoommateMW(objRepo),
-        saveEntryMW(objRepo));
-
-    // Edit roommate entries
-    app.get('/roommate/:roommateId/entries/edit',
-        renderMW(objRepo, 'entryEdit'))
-    app.put('/roommate/:roommateId/entries/:entryId',
-        getRoommateMW(objRepo),
-        getEntryMW(objRepo),
-        saveEntryMW(objRepo));
-    app.delete('/roommate/:roommateId/entries/:entryId',
-        getRoommateMW(objRepo),
-        getEntryMW(objRepo),
-        delEntryMW(objRepo));
+    // View roommates
+    app.get('/',
+        getRoommatesMW(objRepo),
+        renderMW(objRepo, 'index'));
 };
