@@ -4,10 +4,12 @@
  */
 module.exports = function (objRepo) {
     return function (req, res, next) {
-        const roommate = objRepo.db.roommates.findById(parseInt(req.params.roommateId));
-        if (roommate) {
+        return objRepo.db.Roommate.findById(req.params.roommateId, function (err, roommate) {
+            if (err) {
+                return next(err);
+            }
             res.locals.roommate = roommate;
-        }
-        next();
+            return next();
+        });
     };
 };

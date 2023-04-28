@@ -9,7 +9,12 @@ module.exports = function (objRepo) {
         if (!roommate) {
             return res.status(400).end();
         }
-        res.locals.entries = objRepo.db.entries.findByIds(roommate.entryIds);
-        next();
+        return objRepo.db.Entry.find({_roommate: roommate._id}, function (err, entries) {
+            if (err) {
+                return next(err);
+            }
+            res.locals.entries = entries;
+            return next();
+        });
     };
 };

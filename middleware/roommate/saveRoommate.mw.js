@@ -18,26 +18,31 @@ function parseRoommate(body) {
  * Redirects to /roommate/:roommateId after success
  */
 module.exports = function (objRepo) {
-    return function (req, res, _) {
+    return function (req, res, next) {
         // Request is malformed
-        const bodyParsed = parseRoommate(req.body)
-        if ((!bodyParsed && !res.locals.roommate) ||
-            (!bodyParsed && res.locals.roommate)) {
+        const body = parseRoommate(req.body)
+        if ((!body && !res.locals.roommate) ||
+            (!body && res.locals.roommate)) {
             return res.status(400).end();
         }
 
         // Add new item
-        if (bodyParsed && !res.locals.roommate) {
-            const added = objRepo.db.roommates.add(bodyParsed);
-            return res.status(201).redirect(`/roommate/${added.id}`);
+        if (body && !res.locals.roommate) {
+            const added = new objRepo.db.Roommate(body);
+            return added.save(function (err) {
+                if (err) {
+                    return next(err);
+                }
+                return res.status(201).redirect(`/roommate/${added._id}`);
+            });
         }
 
         // Handle existing item change
-        const updated = objRepo.db.roommates.update({
-            ...bodyParsed,
-            entryIds: res.locals.roommate.entryIds,
-            id: res.locals.roommate.id,
-        });
-        return res.status(200).redirect(`/roommate/${updated.id}`);
+        return objRepo.db.Roommate.updateOne({ _id: res.locals.roommate._id }, body, function (err) {
+            if (err) {
+                return next(err);
+            }
+            return res.status(200).redirect(`/roommate/${res.locals.roommate._id}`);
+        })
     };
 };
