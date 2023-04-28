@@ -10,10 +10,11 @@ const getEntryMW = require('../middleware/entry/getEntry.mw');
 const saveEntryMW = require('../middleware/entry/saveEntry.mw');
 const delEntryMW = require('../middleware/entry/delEntry.mw');
 // Our trusty makeshift db
-const db = require("../lib/db")
+const Roommate = require("../models/roommate")
+const Entry = require("../models/entry")
 
 module.exports = function (app) {
-    const objRepo = {db: {roommates: db(), entries: db()}};
+    const objRepo = {db: {Roommate, Entry}};
 
     // Edit roommate entries
     app.get('/roommate/:roommateId/entries/:entryId/delete',
