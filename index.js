@@ -11,6 +11,11 @@ app.use('/public', express.static("public"));
 
 require('./routes/index')(app);
 
+app.use((err, req, res, _) => {
+   res.render("error");
+   console.error(err);
+});
+
 app.listen(port, () => {
    console.log(`Listening on :${port}`);
 });
