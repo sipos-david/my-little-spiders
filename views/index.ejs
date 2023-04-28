@@ -24,11 +24,11 @@
                 <td class="border-b-2 p-1 text-center"><%= roommate.numOfNightmares %></td>
                 <td class="border-b-2 p-1">
                     <a class="transition hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-400 p-2 rounded"
-                       href="/roommate/<%= roommate.id %>">👀</a>
+                       href="/roommate/<%= roommate._id %>">👀</a>
                     <a class="transition hover:bg-violet-100 focus:bg-violet-100 focus:outline-violet-400 p-2 rounded"
-                       href="/roommate/<%= roommate.id %>/edit">✏️</a>
+                       href="/roommate/<%= roommate._id %>/edit">✏️</a>
                     <a class="transition hover:bg-red-100 focus:bg-red-100 focus:outline-red-400 p-2 rounded"
-                       href="/roommate/<%= roommate.id %>/delete">❌</a>
+                       href="/roommate/<%= roommate._id %>/delete">❌</a>
                 </td>
             </tr>
         <% }); %>

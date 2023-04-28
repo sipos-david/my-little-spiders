@@ -4,23 +4,20 @@
  * Redirects to /roommate/:roommateId after delete
  */
 module.exports = function (objRepo) {
-    return function (req, res, _) {
+    return function (req, res, next) {
         const roommate = res.locals.roommate;
-        const entryId = parseInt(req.params.entryId);
-        if (!roommate || isNaN(entryId)) {
+        if (!roommate) {
             return res.status(400).end();
         }
 
-        const entry = objRepo.db.entries.findById(entryId);
-        if (entry) {
-            const removedIdx = roommate.entryIds.findIndex( e => e === entry.id);
-            if (removedIdx > -1) {
-                roommate.entryIds.splice(removedIdx, 1);
-                objRepo.db.roommates.update(roommate);
-                objRepo.db.entries.deleteById(entryId);
+        return objRepo.db.Entry.deleteOne({_id: req.params.entryId}, function (err, result) {
+            if (err) {
+                return next(err);
             }
-        }
-
-        res.redirect(`/roommate/${roommate.id}`);
+            if (result.deletedCount !== 1) {
+                return res.status(404).end();
+            }
+            return res.redirect(`/roommate/${roommate._id}`);
+        });
     };
 };

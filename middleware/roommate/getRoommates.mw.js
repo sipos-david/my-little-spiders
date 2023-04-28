@@ -4,7 +4,12 @@
  */
 module.exports = function (objRepo) {
     return function (req, res, next) {
-        res.locals.roommates = objRepo.db.roommates.findAll();
-        next();
+        return objRepo.db.Roommate.find({}, function (err, roommates) {
+            if (err) {
+                return next(err);
+            }
+            res.locals.roommates = roommates;
+            return next();
+        });
     };
 };
