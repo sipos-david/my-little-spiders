@@ -12,7 +12,7 @@
         <a class="transition hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-400 mb-2 font-semibold py-2 px-4 rounded"
            href="/">↩️ Go back</a>
         <a class="transition hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-400 mb-2 font-semibold py-2 px-4 rounded"
-           href="/roommate/<%= roommate.id %>/entries/new">➕ Add entry</a>
+           href="/roommate/<%= roommate._id %>/entries/new">➕ Add entry</a>
     </nav>
     <table>
         <thead>
@@ -30,7 +30,7 @@
 
         <% entries.forEach((entry) => { %>
             <tr class="leading-10">
-                <td class="border-b-2 px-4 py-1"><%= entry.date %></td>
+                <td class="border-b-2 px-4 py-1"><%= entry.date === null ? "N/A" : entry.date.toDateString() %></td>
                 <td class="border-b-2 p-1 text-center"><%= entry.text %></td>
                 <td class="border-b-2 p-1 text-center">+<%= entry.respectGained %></td>
                 <td class="border-b-2 p-1">
