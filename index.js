@@ -17,6 +17,12 @@ app.use((err, req, res, _) => {
     console.error(err);
 });
 
+// Handle unknown routes
+app.get("*", (req, res) => {
+    res.redirect("/");
+    console.error(`unknown route: ${req.path}`)
+});
+
 app.listen(port, () => {
-   console.log(`Listening on :${port}`);
+    console.log(`Listening on :${port}`);
 });
