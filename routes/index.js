@@ -9,7 +9,7 @@ const getEntriesMW = require('../middleware/entry/getEntries.mw');
 const getEntryMW = require('../middleware/entry/getEntry.mw');
 const saveEntryMW = require('../middleware/entry/saveEntry.mw');
 const delEntryMW = require('../middleware/entry/delEntry.mw');
-// Our trusty makeshift db
+// Db models
 const Roommate = require("../models/roommate")
 const Entry = require("../models/entry")
 
