@@ -10,7 +10,9 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "tailwind:css": "postcss ./public/tailwind.css -o ./public/styles.css --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive",
+    "coverage": "nyc --all mocha --recursive",
+    "coverage:report": "nyc report --reporter=html"
   },
   "repository": {
     "type": "git",
@@ -36,7 +38,10 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
+    "nyc": "^15.1.0",
     "postcss": "^8.4.21",
     "postcss-cli": "^10.1.0",
     "tailwindcss": "^3.3.1"
