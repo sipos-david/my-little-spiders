@@ -1,7 +1,7 @@
 const renderMW = require('../middleware/render.mw');
 // Roommate middlewares
 const getRoommatesMW = require('../middleware/roommate/getRoommates.mw');
-const getRoommateMW = require('../middleware/roommate/getRoomate.mw');
+const getRoommateMW = require('../middleware/roommate/getRoommate.mw');
 const saveRoommateMW = require('../middleware/roommate/saveRoommate.mw');
 const delRoommateMW = require('../middleware/roommate/delRoommate.mw');
 // Entry middlewares
