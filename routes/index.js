@@ -1,7 +1,7 @@
 const renderMW = require('../middleware/render.mw');
 // Roommate middlewares
 const getRoommatesMW = require('../middleware/roommate/getRoommates.mw');
-const getRoommateMW = require('../middleware/roommate/getRoomate.mw');
+const getRoommateMW = require('../middleware/roommate/getRoommate.mw');
 const saveRoommateMW = require('../middleware/roommate/saveRoommate.mw');
 const delRoommateMW = require('../middleware/roommate/delRoommate.mw');
 // Entry middlewares
@@ -9,7 +9,7 @@ const getEntriesMW = require('../middleware/entry/getEntries.mw');
 const getEntryMW = require('../middleware/entry/getEntry.mw');
 const saveEntryMW = require('../middleware/entry/saveEntry.mw');
 const delEntryMW = require('../middleware/entry/delEntry.mw');
-// Our trusty makeshift db
+// Db models
 const Roommate = require("../models/roommate")
 const Entry = require("../models/entry")
 
